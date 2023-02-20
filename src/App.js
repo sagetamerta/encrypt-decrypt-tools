@@ -88,7 +88,7 @@ function App() {
 							"w-10/12 md:w-full text-4xl font-semibold text-white"
 						)}
 					>
-						Generate URL Public Discussion
+						Tools for Encrypt/Decrypt Text
 					</h1>
 				</div>
 				<Toaster />
