@@ -80,8 +80,8 @@ function App() {
 	};
 
 	return (
-		<main>
-			<div className={clsx("max-w-sm mx-auto mt-8", "md:max-w-7xl")}>
+		<main className={clsx("max-w-sm mx-auto mt-8", "md:max-w-7xl")}>
+			<div className={clsx("mx-4")}>
 				<div className={clsx("max-w-xl mx-auto")}>
 					<h1
 						className={clsx(
@@ -175,7 +175,7 @@ function App() {
 											Conversion Type
 										</label>
 										<div className={clsx("flex felx-col gap-4")}>
-											<div className={clsx("flex gap-1 text-white")}>
+											<div className={clsx("flex gap-1 text-white text-sm")}>
 												<input
 													{...register("conversionType", { required: true })}
 													type="radio"
@@ -183,9 +183,9 @@ function App() {
 													name="conversionType"
 													value="encrypt"
 												/>
-												<label htmlFor="encrypt">encrypt</label>
+												<label htmlFor="encrypt">Encrypt</label>
 											</div>
-											<div className={clsx("flex gap-1 text-white")}>
+											<div className={clsx("flex gap-1 text-white text-sm")}>
 												<input
 													{...register("conversionType", { required: true })}
 													type="radio"
@@ -193,7 +193,7 @@ function App() {
 													name="conversionType"
 													value="decrypt"
 												/>
-												<label htmlFor="decrypt">decrypt</label>
+												<label htmlFor="decrypt">Decrypt</label>
 											</div>
 										</div>
 										<span
@@ -267,7 +267,9 @@ function App() {
 						<p className={clsx("text-white text-sm]")}>Result Text</p>
 						<div className={clsx("relative")}>
 							<textarea
-								className={clsx("w-full rounded-md min-h-[200px] px-4 py-2")}
+								className={clsx(
+									"w-full rounded-md min-h-[200px] pl-4 pr-14 py-2"
+								)}
 								value={resultText}
 								readOnly
 							></textarea>
