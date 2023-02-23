@@ -3,6 +3,6 @@ import App from "./App";
 
 test("renders learn react link", () => {
 	render(<App />);
-	const linkElement = screen.getByText(/Generate URL Public Discussion/i);
+	const linkElement = screen.getByText("Tools for Encrypt/Decrypt Text");
 	expect(linkElement).toBeInTheDocument();
 });
