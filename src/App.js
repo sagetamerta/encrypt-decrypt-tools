@@ -7,6 +7,8 @@ import CryptoJS from "crypto-js";
 import { useState } from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
 import toast, { Toaster } from "react-hot-toast";
+import { motion } from "framer-motion";
+import DrilloHead from "./assets/svg/drillo-head-crown.svg";
 
 const FormSchema = yup.object().shape({
 	encryptionKey: yup.string().required("Encryption Key required!"),
@@ -15,6 +17,7 @@ const FormSchema = yup.object().shape({
 
 function App() {
 	const [resultText, setResultText] = useState("");
+	const [isMouseHover, SetIsMouseHover] = useState(false);
 
 	const notify = () => toast.success("Succesfully copy text!");
 
@@ -241,13 +244,13 @@ function App() {
 				</form>
 				{resultText !== "" && (
 					<div
-						className={clsx("my-10 mx-auto flex flex-col gap-1", "md:max-w-sm")}
+						className={clsx("my-10 mx-auto flex flex-col gap-1", "md:max-w-lg")}
 					>
 						<p className={clsx("text-white text-sm]")}>Result Text</p>
 						<div className={clsx("relative")}>
 							<textarea
 								className={clsx(
-									"w-full rounded-md min-h-[200px] pl-4 pr-14 py-2"
+									"w-full rounded-lg min-h-[200px] pl-4 pr-14 py-2"
 								)}
 								value={resultText}
 								readOnly
@@ -258,7 +261,7 @@ function App() {
 							>
 								<button
 									className={clsx(
-										"absolute top-1 right-1 px-2 py-1 rounded-md bg-slate-300",
+										"absolute top-1.5 right-1.5 px-2 py-1 rounded-lg bg-slate-300",
 										"text-xs active:bg-slate-400"
 									)}
 								>
@@ -270,14 +273,41 @@ function App() {
 				)}
 				<footer
 					className={clsx(
-						"text-sm text-white text-center py-4",
-						"md:text-base"
+						"text-sm text-white text-center py-4  mx-auto ",
+						"md:text-base md:max-w-lg"
 					)}
 				>
 					<p>Made with ❤️</p>
-					<p>
-						<span>By Team Frontend BTW </span>
-					</p>
+					<div className={clsx("relative")}>
+						<span>By Team Frontend </span>
+						<a
+							className={clsx("font-semibold", "hover:underline")}
+							href="https://app.btwedutech.com"
+							onMouseEnter={() => SetIsMouseHover(true)}
+							onMouseLeave={() => SetIsMouseHover(false)}
+							rel="noreferrer"
+							target="_blank"
+						>
+							BTW
+						</a>
+						{isMouseHover && (
+							<figure
+								className={clsx("absolute -top-5 right-5", "md:right-10")}
+							>
+								<motion.div
+									initial={{ opacity: 0, scale: 0.5 }}
+									animate={{ opacity: 1, scale: 1 }}
+									transition={{ duration: 0.5 }}
+								>
+									<img
+										className={clsx("w-20 h-20")}
+										alt="drillo-head-crown"
+										src={DrilloHead}
+									/>
+								</motion.div>
+							</figure>
+						)}
+					</div>
 					<p>
 						<small>
 							<span>R</span>
