@@ -5,33 +5,23 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import CryptoJS from "crypto-js";
 import { useState } from "react";
-// import dropDownIcon from "./assets/svg/select-icon.svg";
 import CopyToClipboard from "react-copy-to-clipboard";
 import toast, { Toaster } from "react-hot-toast";
 
 const FormSchema = yup.object().shape({
-	encryptionKey: yup.string().required("Encryption Key harus diisi"),
-	targetText: yup.string().required("Target Text harus diisi"),
+	encryptionKey: yup.string().required("Encryption Key required!"),
+	targetText: yup.string().required("Target Text required!"),
 });
 
 function App() {
 	const [resultText, setResultText] = useState("");
 
-	const notify = () => toast.success("Anda berhasil copy text.");
+	const notify = () => toast.success("Succesfully copy text!");
 
-	const {
-		// watch,
-		register,
-		control,
-		trigger,
-		getValues,
-		handleSubmit,
-		// setError,
-	} = useForm({
+	const { register, control, trigger, getValues, handleSubmit } = useForm({
 		defaultValues: {
 			encryptionKey: "",
 			targetText: "",
-			// schoolType: "",
 			conversionType: "",
 		},
 		resolver: yupResolver(FormSchema),
@@ -42,7 +32,6 @@ function App() {
 		const payload = {
 			encryptionKey: form.encryptionKey,
 			targetText: form.targetText,
-			// schoolType: form.schoolType,
 			conversionType: form.conversionType,
 		};
 		return payload;
@@ -65,7 +54,6 @@ function App() {
 		const payload = getPayload();
 		const encryptKey = payload.encryptionKey;
 		const targetText = payload.targetText;
-		// const schoolType = payload.schoolType;
 		const conversionType = payload.conversionType;
 
 		if (conversionType !== "") {
@@ -80,16 +68,25 @@ function App() {
 	};
 
 	return (
-		<main className={clsx("max-w-sm mx-auto mt-8", "md:max-w-7xl")}>
+		<main className={clsx("max-w-sm mx-auto mt-20", "md:max-w-7xl")}>
 			<div className={clsx("mx-4")}>
-				<div className={clsx("max-w-xl mx-auto")}>
+				<div className={clsx("max-w-xl mx-auto flex flex-col gap-1")}>
 					<h1
 						className={clsx(
-							"w-10/12 md:w-full text-4xl font-semibold text-white"
+							"w-10/12 text-4xl font-semibold text-white",
+							"md:w-full md:text-center md:text-[42px]"
 						)}
 					>
-						Tools for Encrypt/Decrypt Text
+						TextCrypt
 					</h1>
+					<p
+						className={clsx(
+							"text-xl text-white font-medium",
+							"md:text-center md:text-2xl md:tracking-wide"
+						)}
+					>
+						Simple encryption tools
+					</p>
 				</div>
 				<Toaster />
 				<form
@@ -98,36 +95,42 @@ function App() {
 					}}
 				>
 					<div
-						className={clsx("flex flex-col gap-4 mt-9", "md:max-w-sm mx-auto")}
+						className={clsx("flex flex-col gap-4 mt-9 mx-auto", "md:max-w-lg")}
 					>
 						<Controller
 							name="encryptionKey"
 							control={control}
 							render={({ field, fieldState: { error } }) => {
 								return (
-									<div className={clsx("flex flex-col gap-1")}>
-										<label
-											htmlFor="encryptionKey"
-											className={clsx("text-sm text-white")}
-										>
-											Encryption Key
-										</label>
-										<input
-											{...field}
-											name="encryptionKey"
-											type="text"
-											id="encryptionKey"
-											className={clsx("px-4 py-2 rounded-md")}
-											placeholder="Insert encryption key here..."
-										/>
-										<span
-											className={clsx(
-												"mt-1 text-main-red-800 text-sm text-white"
-											)}
+									<>
+										<div className={clsx("flex flex-col gap-2")}>
+											<label
+												htmlFor="encryptionKey"
+												className={clsx(
+													"text-sm text-white font-medium",
+													"md:text-base"
+												)}
+											>
+												Encryption Key
+											</label>
+											<input
+												{...field}
+												name="encryptionKey"
+												type="text"
+												id="encryptionKey"
+												className={clsx(
+													"px-4 py-2.5 rounded-lg",
+													"md:text-base"
+												)}
+												placeholder="Insert encryption key here..."
+											/>
+										</div>
+										<small
+											className={clsx("-mt-3 text-xs md:text-sm text-white")}
 										>
 											{error?.message}
-										</span>
-									</div>
+										</small>
+									</>
 								);
 							}}
 						/>
@@ -136,29 +139,35 @@ function App() {
 							control={control}
 							render={({ field, fieldState: { error } }) => {
 								return (
-									<div className={clsx("flex flex-col gap-1")}>
-										<label
-											htmlFor="targetText"
-											className={clsx("text-sm text-white")}
-										>
-											Target Text
-										</label>
-										<input
-											{...field}
-											name="targetText"
-											type="text"
-											id="targetText"
-											className={clsx("px-4 py-2 rounded-md")}
-											placeholder="Insert target text here..."
-										/>
-										<span
-											className={clsx(
-												"mt-1 text-main-red-800 text-sm text-white"
-											)}
+									<>
+										<div className={clsx("flex flex-col gap-2")}>
+											<label
+												htmlFor="targetText"
+												className={clsx(
+													"text-sm text-white font-medium",
+													"md:text-base"
+												)}
+											>
+												Target Text
+											</label>
+											<input
+												{...field}
+												name="targetText"
+												type="text"
+												id="targetText"
+												className={clsx(
+													"px-4 py-2.5 rounded-lg",
+													"md:text-base"
+												)}
+												placeholder="Insert target text here..."
+											/>
+										</div>
+										<small
+											className={clsx("-mt-3 text-xs md:text-sm text-white")}
 										>
 											{error?.message}
-										</span>
-									</div>
+										</small>
+									</>
 								);
 							}}
 						/>
@@ -170,12 +179,20 @@ function App() {
 									<div className={clsx("flex flex-col gap-1")}>
 										<label
 											htmlFor="conversionType"
-											className={clsx("text-sm text-white")}
+											className={clsx(
+												"text-sm text-white font-medium",
+												"md:text-base"
+											)}
 										>
 											Conversion Type
 										</label>
-										<div className={clsx("flex felx-col gap-4")}>
-											<div className={clsx("flex gap-1 text-white text-sm")}>
+										<div className={clsx("flex flex-row gap-4")}>
+											<div
+												className={clsx(
+													"flex gap-1 text-white text-sm",
+													"md:text-base"
+												)}
+											>
 												<input
 													{...register("conversionType", { required: true })}
 													type="radio"
@@ -185,7 +202,12 @@ function App() {
 												/>
 												<label htmlFor="encrypt">Encrypt</label>
 											</div>
-											<div className={clsx("flex gap-1 text-white text-sm")}>
+											<div
+												className={clsx(
+													"flex gap-1 text-white text-sm",
+													"md:text-base"
+												)}
+											>
 												<input
 													{...register("conversionType", { required: true })}
 													type="radio"
@@ -196,64 +218,21 @@ function App() {
 												<label htmlFor="decrypt">Decrypt</label>
 											</div>
 										</div>
-										<span
-											className={clsx(
-												"mt-1 text-main-red-800 text-sm text-white"
-											)}
+										<small
+											className={clsx("-mt-3 text-xs md:text-sm text-white")}
 										>
 											{error?.message}
-										</span>
+										</small>
 									</div>
 								);
 							}}
 						/>
-						{/* <Controller
-							name="schoolType"
-							control={control}
-							render={({ field, fieldState: { error } }) => {
-								return (
-									<div className={clsx("flex flex-col gap-1")}>
-										<label
-											htmlFor="schoolType"
-											className={clsx("text-sm text-white")}
-										>
-											School Type
-										</label>
-										<div className={clsx("flex relative")}>
-											<select
-												{...field}
-												{...register("schoolType")}
-												className={clsx("px-4 py-2 rounded-md w-full")}
-											>
-												<option value="">Select School Type</option>
-												<option value="ptn">PTN</option>
-												<option value="ptk">PTK</option>
-											</select>
-											<img
-												alt="icon-down"
-												src={dropDownIcon}
-												width="15px"
-												height="15px"
-												className={clsx("absolute right-3 inset-y-1/4 mt-1.5")}
-											/>
-										</div>
-										<span
-											className={clsx(
-												"mt-1 text-main-red-800 text-sm text-white"
-											)}
-										>
-											{error?.message}
-										</span>
-									</div>
-								);
-							}}
-						/> */}
 					</div>
 					<div className={clsx("md:max-w-xs md:mx-auto")}>
 						<button
 							type="submit"
 							className={clsx(
-								"w-full mt-8 font-semibold bg-gray-300 rounded-lg py-2 px-3"
+								"w-full mt-8 font-semibold bg-gray-300 rounded-lg p-3"
 							)}
 						>
 							Generate Result
@@ -262,7 +241,7 @@ function App() {
 				</form>
 				{resultText !== "" && (
 					<div
-						className={clsx("my-10 flex flex-col gap-1", "md:max-w-sm mx-auto")}
+						className={clsx("my-10 mx-auto flex flex-col gap-1", "md:max-w-sm")}
 					>
 						<p className={clsx("text-white text-sm]")}>Result Text</p>
 						<div className={clsx("relative")}>
@@ -289,8 +268,24 @@ function App() {
 						</div>
 					</div>
 				)}
-				<footer className={clsx("text-white text-center py-4")}>
-					Made with ❤️. By Team Frontend BTW <small>RDDS</small>
+				<footer
+					className={clsx(
+						"text-sm text-white text-center py-4",
+						"md:text-base"
+					)}
+				>
+					<p>Made with ❤️</p>
+					<p>
+						<span>By Team Frontend BTW </span>
+					</p>
+					<p>
+						<small>
+							<span>R</span>
+							<span>D</span>
+							<span>D</span>
+							<span>S</span>
+						</small>
+					</p>
 				</footer>
 			</div>
 		</main>
