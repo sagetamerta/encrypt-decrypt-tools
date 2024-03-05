@@ -41,10 +41,24 @@ function App() {
 	};
 
 	const decryptText = (text, encryptionKey) => {
-		const encrypted = text.split("---").join("/");
-		const bytes = CryptoJS.AES.decrypt(encrypted, encryptionKey);
-		const originalText = bytes.toString(CryptoJS.enc.Utf8);
-		return originalText;
+		try {
+			const encrypted = text.split("---").join("/");
+			const bytes = CryptoJS.AES.decrypt(encrypted, encryptionKey);
+			const originalText = bytes.toString(CryptoJS.enc.Utf8);
+
+			// Check if the decryption result is not empty
+			if (originalText === "") {
+				throw new Error(
+					"Decryption failed: Malformed or incorrect encryption key."
+				);
+			}
+
+			return originalText;
+		} catch (error) {
+			// Handle the decryption error gracefully
+			console.error("Decryption error:", error.message);
+			return "Decryption failed: Please check your encryption key and input text.";
+		}
 	};
 
 	const encryptText = (text, encryptionKey) => {
@@ -67,6 +81,8 @@ function App() {
 				const result = encryptText(targetText, encryptKey);
 				setResultText(result);
 			}
+		} else {
+			toast.error("Conversion Type required!");
 		}
 	};
 
