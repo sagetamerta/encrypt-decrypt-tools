@@ -9,7 +9,7 @@ import CopyToClipboard from 'react-copy-to-clipboard'
 import { IconCopy } from '@tabler/icons-react'
 import toast from 'react-hot-toast'
 import CreatorFooter from '@/components/footer/CreatorFooter'
-import Header from '@/components/header/Header'
+import ThemeToggle from '@/components/theme/ThemeToggle'
 
 const formSchema = Yup.object().shape({
   target_text: Yup.string().required('Target Text is required'),
@@ -65,7 +65,13 @@ const LandingPage = () => {
       <SEO title="TextCrypt | Encryption and Decryption Tools" />
       <main className="flex flex-col justify-center items-center">
         <section className="min-w-[375px] md:min-w-[768px] p-4 md:p-8 rounded">
-          <Header />
+          <div className={clsx('flex justify-between items-center mb-4')}>
+            <div>
+              <h1 className={clsx('text-2xl')}>TextCrypt</h1>
+              <p>Simple encryption tool</p>
+            </div>
+            <ThemeToggle />
+          </div>
           {/* Toggle button encrypt or decrypt */}
           <div className="flex justify-between mb-8">
             {modeOptions.map((option) => {
