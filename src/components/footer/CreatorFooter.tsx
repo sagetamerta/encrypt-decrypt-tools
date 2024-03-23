@@ -48,8 +48,8 @@ const CreatorFooter = () => {
         )}
       </div>
       <div>
-        {frontEndTeamAliasList.map((als) => (
-          <small>{als}</small>
+        {frontEndTeamAliasList.map((als, index) => (
+          <small key={index}>{als}</small>
         ))}
       </div>
     </footer>
