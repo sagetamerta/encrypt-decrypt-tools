@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+button {
+  user-select: none;
+}
+
+@layer base{
+    body {
+        @apply dark:bg-slate-900 bg-white;
+    }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .custom-textarea {
+    resize: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    border: 1px solid #e5e7eb;
+    background-color: #f9fafb;
+    color: black;
+  }
+
+  .custom-textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+  }
+
+  .custom-textarea:hover:not(:focus) {
+    border-color: #d1d5db;
+  }
+}
+
